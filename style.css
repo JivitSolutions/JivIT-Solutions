@@ -1,0 +1,1074 @@
+/* Global Variables & Reset */
+:root {
+    /* Luxury Palette */
+    --bg-main: #F9F8F4;
+    /* Warm Alabaster */
+    --bg-white: #FFFFFF;
+    --text-primary: #1A1A1A;
+    --text-secondary: #595959;
+
+    --accent-it: #2C3E50;
+    /* Deep Executive Blue/Grey */
+    --accent-wellness: #937F61;
+    /* Muted Bronze/Gold */
+    --accent-light: #E8E6E1;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    --container-width: 1400px;
+    /* Wider for premium feel */
+    --spacing-section: 140px;
+    --spacing-sm: 60px;
+
+    --transition-slow: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Standards */
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    color: var(--text-primary);
+    line-height: 1.15;
+}
+
+p {
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-slow);
+}
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container {
+    width: 90%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+/* Navigation - Transparent & Minimal */
+.site-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 2.5rem 0;
+}
+
+.header-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 600;
+    /* Italic style often looks very premium in Playfair */
+    font-style: italic;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+/* Navigation - Flat & Minimal */
+.site-nav ul {
+    display: flex;
+    gap: 3rem;
+}
+
+.site-nav a {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-transform: none;
+    /* Cleaner, more modern look */
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    color: var(--text-primary);
+    position: relative;
+    padding-bottom: 2px;
+}
+
+/* Products & Services Directory Styles */
+.directory-section {
+    padding: 100px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.directory-header {
+    margin-bottom: 4rem;
+}
+
+.directory-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.directory-sub {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-style: italic;
+}
+
+.directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.directory-card {
+    padding: 2rem;
+    background-color: var(--bg-white);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: var(--transition-slow);
+}
+
+.directory-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.directory-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+}
+
+.directory-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+}
+
+.bg-light {
+    background-color: #FAFAFA;
+}
+
+/* Student Page Specifics */
+.student-card {
+    border: none;
+    background-color: #FAFAFA;
+    padding: 2.5rem;
+}
+
+.student-list li {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu li {
+    width: 100%;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: none;
+    /* Keep dropdown items refined */
+    letter-spacing: 0.05em;
+    border-left: 2px solid transparent;
+}
+
+.dropdown-menu a::after {
+    display: none;
+    /* No underline for dropdown items */
+}
+
+.dropdown-menu a:hover {
+    background-color: #FAFAFA;
+    color: var(--text-primary);
+    border-left-color: var(--accent-wellness);
+}
+
+.nav-cta {
+    border-bottom: 1px solid var(--text-primary);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 1px;
+    background-color: var(--text-primary);
+}
+
+/* Hero Section */
+.hero-luxury {
+    padding-top: 250px;
+    padding-bottom: 150px;
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
+
+.hero-pre-title {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.875rem;
+    color: var(--accent-wellness);
+    margin-bottom: 1.5rem;
+}
+
+.hero-content h1 {
+    font-size: 5.5rem;
+    /* Massive luxury type */
+    margin-bottom: 2rem;
+}
+
+.hero-subtext {
+    font-size: 1.25rem;
+    max-width: 600px;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 2rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: var(--transition-slow);
+}
+
+.btn-primary {
+    background-color: var(--text-primary);
+    color: var(--bg-white);
+    border: 1px solid var(--text-primary);
+}
+
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.btn-outline:hover {
+    border-color: var(--text-primary);
+}
+
+/* Philosophy Section */
+.philosophy-section {
+    padding: var(--spacing-section) 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.two-col-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.philosophy-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.philosophy-image img {
+    height: 600px;
+    object-fit: cover;
+    filter: grayscale(20%);
+    /* Artistic touch */
+    border-radius: 2px;
+}
+
+/* Service Verticals */
+.service-vertical {
+    padding: var(--spacing-section) 0;
+}
+
+.vertical-tag {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-wellness);
+    margin-bottom: 1rem;
+}
+
+.it-vertical {
+    background-color: var(--bg-white);
+}
+
+.vertical-header h2 {
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--accent-light);
+    padding-top: 3rem;
+}
+
+.card-icon {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    /* Large number */
+    color: var(--accent-wellness);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--accent-light);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    /* Clean technical header */
+    font-weight: 500;
+}
+
+/* Wellness Vertical */
+.wellness-vertical {
+    background-color: #F1EFEC;
+    /* Slightly warmer tone */
+}
+
+.wellness-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+}
+
+.lead-text {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    font-style: italic;
+}
+
+.wellness-list {
+    margin-top: 2rem;
+    list-style: none;
+}
+
+.wellness-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+}
+
+.wellness-image-grid img {
+    height: 700px;
+    /* Tall sophisticated crop */
+    object-fit: cover;
+}
+
+/* Innovation / Research */
+.innovation-section {
+    padding: var(--spacing-section) 0;
+}
+
+.innovation-header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.innovation-header h2 {
+    font-size: 4rem;
+}
+
+.innovation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.innovation-item {
+    position: relative;
+}
+
+.innovation-item img {
+    height: 500px;
+    object-fit: cover;
+    margin-bottom: 2rem;
+    transition: transform 0.7s ease;
+}
+
+.innovation-item:hover img {
+    transform: scale(0.98);
+}
+
+.innovation-text h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.text-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    border-bottom: 1px solid var(--text-primary);
+}
+
+/* Footer CTA */
+.luxury-footer-cta {
+    padding: 120px 0;
+    background-color: var(--text-primary);
+    color: var(--bg-white);
+}
+
+.luxury-footer-cta h2 {
+    color: var(--bg-white);
+    font-size: 4rem;
+    margin-bottom: 5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 2rem;
+}
+
+.footer-cta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+}
+
+.cta-col h3 {
+    color: var(--accent-wellness);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+}
+
+.cta-col p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.cta-link {
+    color: var(--bg-white);
+    font-style: italic;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.site-footer {
+    padding: 2rem 0;
+    background-color: var(--text-primary);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+}
+
+.footer-bottom-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.social-links {
+    display: flex;
+    gap: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .container {
+        width: 95%;
+    }
+
+    .hero-content h1 {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header {
+        padding: 1.5rem 0;
+    }
+
+    .site-nav {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .hero-luxury {
+        padding-top: 150px;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* ... existing responsive styles ... */
+    .two-col-layout,
+    .feature-grid,
+    .innovation-grid,
+    .footer-cta-grid,
+    .contact-layout {
+        /* Added contact layout */
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    /* ... */
+
+    .reverse-mobile {
+        display: flex;
+        flex-direction: column-reverse;
+        /* Put text above image on mobile? Or standard vertical */
+        /* Actually stick to vertical stack */
+    }
+
+    .philosophy-image img,
+    .wellness-image-grid img {
+        height: 400px;
+    }
+}
+
+/* Login Page Specifics */
+.login-page {
+    overflow-y: hidden;
+    /* Prevent scroll on desktop if possible */
+}
+
+.login-split {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.login-visual {
+    flex: 1;
+    position: relative;
+    background-color: #000;
+}
+
+.bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.visual-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.0) 100%);
+    z-index: 1;
+}
+
+.visual-content {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    z-index: 2;
+    color: white;
+    max-width: 500px;
+}
+
+.visual-content h2 {
+    color: white;
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.visual-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+}
+
+/* Login Form */
+.login-form-container {
+    width: 50%;
+    max-width: 600px;
+    background-color: var(--bg-white);
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    justify-content: center;
+}
+
+.login-header {
+    margin-bottom: 4rem;
+}
+
+.form-wrapper {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-wrapper h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+}
+
+.form-subtext {
+    margin-bottom: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--accent-light);
+    border-radius: 2px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: var(--transition-slow);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--text-primary);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: 0.85rem;
+}
+
+.check-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-block {
+    width: 100%;
+    text-align: center;
+}
+
+.form-footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.form-footer a {
+    color: var(--text-primary);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+/* Navigation New Items */
+.nav-login {
+    font-weight: 600;
+    color: var(--accent-it) !important;
+}
+
+/* Sub-pages Styles */
+.page-header {
+    padding-top: 200px;
+    padding-bottom: 80px;
+    text-align: center;
+    background-color: var(--bg-main);
+}
+
+.page-tag {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.page-lead {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.content-block {
+    padding: 100px 0;
+}
+
+.service-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+
+/* Service Cards (Premium Transition) */
+.detail-item-card {
+    background-color: var(--bg-white);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+}
+
+.card-image-wrapper {
+    overflow: hidden;
+    height: 240px;
+}
+
+.detail-item-card .detail-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.detail-item-card:hover .detail-img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.detail-item-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.read-more {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--accent-it);
+    border-bottom: 1px solid transparent;
+    transition: var(--transition-slow);
+    display: inline-block;
+    align-self: flex-start;
+}
+
+.detail-item-card:hover .read-more {
+    border-bottom-color: var(--accent-it);
+}
+
+/* Service Detail Page */
+.service-hero {
+    padding-top: 180px;
+    padding-bottom: 80px;
+    background-color: var(--bg-main);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.service-detail-block {
+    padding: 80px 0 140px;
+}
+
+.detail-layout {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-detail-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    margin-bottom: 3rem;
+    border-radius: 2px;
+}
+
+.lead-text {
+    font-size: 1.35rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+.feature-list-check {
+    list-style: none;
+    margin-bottom: 4rem;
+    padding-left: 0;
+}
+
+.feature-list-check li {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 2rem;
+    color: var(--text-primary);
+}
+
+.feature-list-check li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-wellness);
+}
+
+.detail-actions {
+    display: flex;
+    gap: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 3rem;
+}
+
+
+/* Responsive Login */
+@media (max-width: 900px) {
+    .login-split {
+        flex-direction: column;
+    }
+
+    .login-visual {
+        display: none;
+        /* Hide visual on mobile for focus */
+    }
+
+    /* Contact Page */
+    .contact-header {
+        padding-top: 180px;
+        padding-bottom: 60px;
+    }
+
+    .contact-section {
+        padding: 80px 0 140px;
+    }
+
+    .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 5rem;
+    }
+
+    .contact-info h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .info-item {
+        margin-bottom: 2.5rem;
+    }
+
+    .info-item h3 {
+        font-size: 1.1rem;
+        font-family: var(--font-body);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--accent-it);
+    }
+
+    /* Premium Form Input Styles */
+    .form-group label {
+        font-family: var(--font-heading);
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+    }
+
+    .form-group input,
+    .select-wrapper select,
+    textarea#message {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #CCC;
+        border-radius: 0;
+        padding: 0.75rem 0;
+        font-size: 1.1rem;
+        font-weight: 300;
+        color: var(--text-primary);
+        transition: border-color 0.4s ease;
+    }
+
+    .form-group input:focus,
+    .select-wrapper select:focus,
+    textarea#message:focus {
+        border-bottom-color: var(--text-primary);
+        background-color: transparent;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .form-group input::placeholder,
+    textarea#message::placeholder {
+        color: #BBB;
+        font-weight: 300;
+        font-style: italic;
+    }
+
+    .contact-form-wrapper {
+        background-color: transparent;
+        /* Clean look */
+        padding: 0;
+        /* Align with content */
+        border: none;
+        box-shadow: none;
+    }
+
+    .appointment-form h3 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        font-family: var(--font-heading);
+    }
+
+    .form-row {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .form-row .form-group {
+        flex: 1;
+    }
+
+    textarea#message {
+        width: 100%;
+        /* other styles handled by refined block above */
+        resize: vertical;
+    }
+
+    .select-wrapper select {
+        width: 100%;
+        /* other styles handled by refined block above */
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .dropdown-menu {
+            position: static;
+            box-shadow: none;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            padding-left: 1rem;
+            background: transparent;
+            display: none;
+            /* Hide via JS or just CSS toggle logic later */
+        }
+
+        .dropdown-trigger::after {
+            content: ' +';
+        }
+
+        /* For simple mobile nav, we might just list them or need JS to toggle */
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+
+    .login-form-container {
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+    }
+}

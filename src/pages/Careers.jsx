@@ -1,14 +1,36 @@
 import { Link } from "react-router-dom";
 
+import { useState, useEffect } from 'react';
+import { adminService } from '../lib/adminService';
+
 const Careers = () => {
-    const openings = [
-        { title: "Senior Software Engineer", type: "Full-time", location: "Remote / Mumbai", dept: "IT Division" },
-        { title: "UI/UX Designer", type: "Full-time", location: "Remote", dept: "Creative Division" },
-        { title: "Wellness Content Strategist", type: "Contract", location: "Remote", dept: "Wellness Division" },
-        { title: "Project Manager", type: "Full-time", location: "Mumbai", dept: "Operations" },
-        { title: "React Developer", type: "Full-time", location: "Remote", dept: "IT Division" },
-        { title: "Mindfulness Coach", type: "Part-time", location: "Hybrid", dept: "Wellness Division" }
-    ];
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchJobs = async () => {
+            // Fail-safe timeout
+            const timer = setTimeout(() => setLoading(false), 10000);
+
+            try {
+                const data = await adminService.getJobOpenings(); // Only published
+                setJobs(data);
+                clearTimeout(timer);
+            } catch (error) {
+                console.error('Error fetching jobs:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchJobs();
+    }, []);
+
+    if (loading) return (
+        <div className="loading-state-full">
+            <div className="premium-spinner"></div>
+            <p>Scanning the Horizon for Talent...</p>
+        </div>
+    );
 
     return (
         <main className="career-page">
@@ -25,20 +47,33 @@ const Careers = () => {
             <section className="content-block">
                 <div className="container">
                     <h2 className="section-title">Open Roles</h2>
-                    <div className="directory-grid">
-                        {openings.map((role, idx) => (
-                            <div key={idx} className="directory-card career-card">
-                                <p className="division-label" style={{ marginBottom: '0.5rem', fontSize: '0.7rem' }}>
-                                    {role.dept}
-                                </p>
-                                <h3>{role.title}</h3>
-                                <p style={{ fontSize: '0.9rem', marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
-                                    {role.location} • {role.type}
-                                </p>
-                                <Link to="/contact" className="text-link">Apply Now →</Link>
+                    {jobs.length > 0 ? (
+                        <div className="directory-grid">
+                            {jobs.map((role) => (
+                                <div key={role.id} className="directory-card career-card">
+                                    <p className="division-label" style={{ marginBottom: '0.5rem', fontSize: '0.7rem' }}>
+                                        {role.department}
+                                    </p>
+                                    <h3>{role.title}</h3>
+                                    <p style={{ fontSize: '0.9rem', marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
+                                        {role.location} • {role.type}
+                                    </p>
+                                    <Link to={`/careers/${role.id}`} className="text-link">Apply Now →</Link>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="empty-state-section" style={{ padding: '60px 0' }}>
+                            <div className="empty-indicator">
+                                <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#D2C7BB" strokeWidth="1">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
                             </div>
-                        ))}
-                    </div>
+                            <h3>All Positions Filled</h3>
+                            <p>We've currently found our match for all open roles. <br />However, we're always scouting for extraordinary minds.</p>
+                        </div>
+                    )}
                 </div>
             </section>
 

@@ -1,6 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { adminService } from '../lib/adminService';
 
 const Contact = () => {
+    const [settings, setSettings] = useState({
+        site_name: 'JivIT Solutions',
+        contact_email: 'hello@jivitsolutions.com'
+    });
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const data = await adminService.getSettings();
+                if (data) setSettings(prev => ({ ...prev, ...data }));
+            } catch (error) { }
+        };
+        fetchSettings();
+    }, []);
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -64,7 +80,7 @@ const Contact = () => {
                                     </div>
                                     <div>
                                         <h3>Email</h3>
-                                        <p>hello@jivitsolutions.com</p>
+                                        <p>{settings.contact_email}</p>
                                     </div>
                                 </div>
 

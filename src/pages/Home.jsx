@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const fadeInUp = {
@@ -20,10 +21,60 @@ const staggerContainer = {
 
 import heroEarth from "../assets/hero_earth_editorial.png";
 
+import { adminService } from '../lib/adminService';
+
 const Home = () => {
     const { scrollY } = useScroll();
     const earthRotate = useTransform(scrollY, [0, 1000], [0, 15]); // Subtle rotation
     const earthY = useTransform(scrollY, [0, 1000], [0, 100]); // Parallax drift
+
+    const [settings, setSettings] = useState({
+        site_name: 'JivIT Solutions',
+        hero_tagline: 'Orchestrating Digital Future & Human Potential',
+        hero_description: 'JivIT Solutions bridges the gap between enterprise-grade engineering and holistic human growth. We build resilient platforms and empower thriving organizations.',
+        mission_it_label: 'IT Solutions',
+        mission_wellness_label: 'Wellness Services'
+    });
+
+    const [missionData, setMissionData] = useState({
+        it: null,
+        wellness: null
+    });
+    const [latestBlogs, setLatestBlogs] = useState([]);
+
+    useEffect(() => {
+        const fetchHomeData = async () => {
+            // Fail-safe: loading ends after 8 seconds to show default content
+            const timer = setTimeout(() => {
+                setMissionData({ it: null, wellness: null });
+            }, 8000);
+
+            try {
+                const settingsData = await adminService.getSettings();
+                if (settingsData) setSettings(prev => ({ ...prev, ...settingsData }));
+
+                const services = await adminService.getServices();
+                if (services && Array.isArray(services)) {
+                    const itService = services.find(s => s.category === 'it-solutions');
+                    const wellnessService = services.find(s => s.category === 'wellness');
+
+                    setMissionData({
+                        it: itService,
+                        wellness: wellnessService
+                    });
+                }
+
+                const blogs = await adminService.getBlogs();
+                if (blogs && Array.isArray(blogs)) {
+                    setLatestBlogs(blogs.slice(0, 3));
+                }
+                clearTimeout(timer);
+            } catch (error) {
+                console.error('Home Data Load Error:', error);
+            }
+        };
+        fetchHomeData();
+    }, []);
 
     return (
         <div className="home-wrapper">
@@ -49,11 +100,8 @@ const Home = () => {
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4, duration: 0.8 }}
-                        >
-                            Orchestrating <br />
-                            Digital <span className="gradient-text">Future</span> & <br />
-                            <span className="gradient-text">Human Potential</span>
-                        </motion.h1>
+                            dangerouslySetInnerHTML={{ __html: settings.hero_tagline.replace('&', '&amp;').replace('Future', '<span class="gradient-text">Future</span>').replace('Potential', '<span class="gradient-text">Potential</span>') }}
+                        />
 
                         <motion.p
                             className="hero-description"
@@ -61,9 +109,7 @@ const Home = () => {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6 }}
                         >
-                            JivIT Solutions bridges the gap between enterprise-grade engineering
-                            and holistic human growth. We build resilient platforms and empower
-                            thriving organizations.
+                            {settings.hero_description}
                         </motion.p>
 
                         <motion.div
@@ -138,24 +184,29 @@ const Home = () => {
                         <motion.div className="mission-card it-pillar" {...fadeInUp}>
                             <div className="mission-image">
                                 <img
-                                    src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
+                                    src={missionData.it?.image_url || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"}
                                     alt="Technology and digital innovation"
                                 />
                                 <div className="mission-overlay"></div>
                             </div>
                             <div className="mission-content">
-                                <span className="mission-tag">Digital Excellence</span>
-                                <h3>Enterprise IT Solutions</h3>
+                                <span className="mission-tag">
+                                    {settings.mission_it_label}
+                                </span>
+
+                                <h3>{missionData.it?.title || 'Enterprise IT Solutions'}</h3>
                                 <p>
-                                    From cloud architecture to custom software development, we deliver
-                                    scalable, secure, and sophisticated technology infrastructure for
-                                    modern businesses.
+                                    {missionData.it?.subtitle || 'From cloud architecture to custom software development, we deliver scalable infrastructure.'}
                                 </p>
                                 <ul className="mission-features">
-                                    <li>Strategic Technology Consulting</li>
-                                    <li>Custom Platform Development</li>
-                                    <li>Cloud Infrastructure & DevOps</li>
-                                    <li>Cybersecurity & Compliance</li>
+                                    {missionData.it?.benefits?.slice(0, 4).map((b, i) => <li key={i}>{b}</li>) || (
+                                        <>
+                                            <li>Strategic Technology Consulting</li>
+                                            <li>Custom Platform Development</li>
+                                            <li>Cloud Infrastructure & DevOps</li>
+                                            <li>Cybersecurity & Compliance</li>
+                                        </>
+                                    )}
                                 </ul>
                                 <Link to="/products-services" className="text-link">
                                     Explore IT Services →
@@ -171,23 +222,29 @@ const Home = () => {
                         >
                             <div className="mission-image">
                                 <img
-                                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80"
+                                    src={missionData.wellness?.image_url || "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"}
                                     alt="Mindfulness and inner peace"
                                 />
                                 <div className="mission-overlay wellness-overlay"></div>
                             </div>
                             <div className="mission-content">
-                                <span className="mission-tag wellness-tag">Inner Evolution</span>
-                                <h3>Wellness & Transformation</h3>
+                                <span className="mission-tag wellness-tag">
+                                    {settings.mission_wellness_label}
+                                </span>
+
+                                <h3>{missionData.wellness?.title || 'Wellness & Transformation'}</h3>
                                 <p>
-                                    A dedicated platform for healers, coaches, and wellness professionals.
-                                    We empower holistic practice owners to reach clients and transform lives.
+                                    {missionData.wellness?.subtitle || 'A dedicated platform for healers, coaches, and wellness professionals.'}
                                 </p>
                                 <ul className="mission-features">
-                                    <li>Mindfulness & Meditation Programs</li>
-                                    <li>Life & Wellness Coaching</li>
-                                    <li>Holistic Health Practitioners</li>
-                                    <li>Personal Transformation Journeys</li>
+                                    {missionData.wellness?.benefits?.slice(0, 4).map((b, i) => <li key={i}>{b}</li>) || (
+                                        <>
+                                            <li>Mindfulness & Meditation Programs</li>
+                                            <li>Life & Wellness Coaching</li>
+                                            <li>Holistic Health Practitioners</li>
+                                            <li>Personal Transformation Journeys</li>
+                                        </>
+                                    )}
                                 </ul>
                                 <Link to="/products-services" className="text-link">
                                     Explore Wellness Services →
@@ -301,6 +358,58 @@ const Home = () => {
                 </div>
             </section>
 
+
+
+            {/* ================= LATEST NARRATIVES ================= */}
+            {
+                latestBlogs.length > 0 && (
+                    <section className="latest-narratives" style={{ padding: '80px 0', background: 'var(--color-bg-secondary)' }}>
+                        <div className="container">
+                            <motion.div className="section-header centered" {...fadeInUp}>
+                                <span className="section-label">Insights & Perspectives</span>
+                                <h2>Latest Narratives</h2>
+                            </motion.div>
+
+                            <div className="narratives-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginTop: '40px' }}>
+                                {latestBlogs.map((blog, idx) => (
+                                    <motion.div
+                                        key={blog.id}
+                                        className="blog-card"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                        viewport={{ once: true }}
+                                        style={{ background: 'var(--color-bg-primary)', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-md)' }}
+                                    >
+                                        <Link to={`/blog/${blog.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <div className="blog-img" style={{ height: '200px', overflow: 'hidden' }}>
+                                                <img
+                                                    src={blog.image_url || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800"}
+                                                    alt={blog.title}
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }}
+                                                />
+                                            </div>
+                                            <div className="blog-content" style={{ padding: '20px' }}>
+                                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--color-accent)', letterSpacing: '0.5px' }}>
+                                                    {blog.category}
+                                                </span>
+                                                <h3 style={{ fontSize: '1.25rem', margin: '10px 0', lineHeight: 1.4 }}>{blog.title}</h3>
+                                                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                                                    {blog.excerpt}
+                                                </p>
+                                                <span className="read-more" style={{ display: 'inline-block', marginTop: '15px', color: 'var(--color-primary)', fontWeight: 500, fontSize: '0.9rem' }}>
+                                                    Read Entry →
+                                                </span>
+                                            </div>
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )
+            }
+
             {/* ================= STUDENTS & RESEARCH ================= */}
             <section className="future-section">
                 <div className="container">
@@ -379,7 +488,7 @@ const Home = () => {
                     </motion.div>
                 </div>
             </section>
-        </div>
+        </div >
     );
 };
 

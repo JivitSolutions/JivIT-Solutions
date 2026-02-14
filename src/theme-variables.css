@@ -1,164 +1,85 @@
-/* ==================================
-   PREMIUM LIGHT THEME ONLY
-   Minimalist Neutral
-   ================================== */
-
 :root {
-    /* ===== Background Colors (True Minimalist Neutrals) ===== */
-    --bg-main: #FFFFFF;
-    /* Pure white - main page */
-    --bg-white: #F4F4F5;
-    /* Light gray - cards & panels (was 'bg-white' but acts as secondary) */
-    --bg-alt: #FAFAFA;
-    /* Very subtle off-white - sections */
-    --bg-elevated: #FFFFFF;
-    /* Elevated components */
-    --bg-card: #FFFFFF;
-    /* Card backgrounds */
+    /* ===== Colors (Refined & Slightly Darker) ===== */
+    --accent-it: #2F3F52;
+    /* Deeper blue-grey */
+    --accent-it-hover: #243240;
 
-    /* ===== Text Colors (High Contrast Neutral) ===== */
-    --text-primary: #18181B;
-    /* Jet black headings (Zinc-900) */
-    --text-secondary: #52525B;
-    /* Neutral gray body (Zinc-600) */
-    --text-tertiary: #A1A1AA;
-    /* Light gray supporting (Zinc-400) */
-    --text-muted: #D4D4D8;
-    /* Muted placeholder */
-    --text-inverse: #FFFFFF;
-    /* White text for buttons */
+    --accent-wellness: #C6BAAE;
+    /* Slightly richer warm tone */
+    --accent-wellness-hover: #B8AB9E;
 
-    /* ===== Accent Colors (Monochrome Luxury) ===== */
-    --accent-it: #18181B;
-    /* Black primary */
-    --accent-it-hover: #3F3F46;
-    /* Charcoal hover */
-    --accent-wellness: #18181B;
-    /* Unified accent */
-    --accent-wellness-hover: #3F3F46;
+    --accent-light: #E9E5DF;
+    /* Slightly darker cream */
 
-    /* ===== Border Colors (Crisp & Subtle) ===== */
-    --border-light: #E4E4E7;
-    /* Very light gray */
-    --border-medium: #D4D4D8;
-    --border-dark: #A1A1AA;
+    --bg-main: #F7F6F3;
+    /* Soft warm off-white */
+    --bg-white: #FFFFFF;
+    --bg-alt: #EEECE8;
+    /* Darker alternate background */
 
-    /* ===== Shadow System (Refined & Airy) ===== */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+    --text-primary: #141414;
+    /* Rich near-black */
+    --text-secondary: #3E3E3E;
+    /* Stronger secondary */
+    --text-tertiary: #6E6E6E;
+
+    --border-light: #E2DFDA;
+    /* Slightly stronger border */
+
+    /* ===== Fonts ===== */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* ===== Layout ===== */
+    --container-width: 1400px;
+    --spacing-section: 140px;
+    --spacing-sm: 60px;
+
+    /* ===== Transitions ===== */
+    --transition-fast: all 0.2s ease;
+    --transition-medium: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-slow: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 
     /* ===== Component Specific ===== */
-    --navbar-bg: rgba(255, 255, 255, 0.85);
-    --navbar-bg-scrolled: rgba(255, 255, 255, 0.95);
-    --navbar-text: #18181B;
-    --navbar-border: rgba(228, 228, 231, 0.5);
+    --navbar-bg: rgba(247, 246, 243, 0.85);
+    --navbar-bg-scrolled: rgba(247, 246, 243, 0.95);
+    --navbar-border: rgba(0, 0, 0, 0.08);
 
-    --card-bg: #FFFFFF;
-    --card-border: #E4E4E7;
-    --card-hover-border: #18181B;
-    --card-hover-bg: #FAFAFA;
-
-    --modal-overlay: rgba(24, 24, 27, 0.4);
-    --modal-bg: #FFFFFF;
-
-    /* Footer - Minimalist Dark */
-    --footer-bg-start: #18181B;
-    /* Black */
-    --footer-bg-end: #09090B;
-    /* Deep black */
-    --footer-text: #FAFAFA;
-    /* White text */
-    --footer-text-muted: #A1A1AA;
-    --footer-border: #3F3F46;
-
-    --btn-primary-bg: #18181B;
-    --btn-primary-hover: #27272A;
-    --btn-primary-text: #FFFFFF;
-
-    --btn-outline-border: #D4D4D8;
-    --btn-outline-text: #18181B;
-    --btn-outline-hover-bg: #18181B;
-    --btn-outline-hover-text: #FFFFFF;
-
-    /* ===== Gradients (Subtle to None for Minimalism) ===== */
-    --gradient-primary: linear-gradient(135deg, #18181B 0%, #27272A 100%);
-    --gradient-hero: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(244, 244, 245, 0.5) 100%);
-    --gradient-card: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
+    /* ===== Shadows ===== */
+    --shadow-sm: 0 6px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* ==================== SMOOTH TRANSITIONS ==================== */
+
+/* ==================== GLOBAL RESET & BASE ==================== */
 * {
-    transition: background-color 0.3s ease,
-        color 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Exclude fast animations */
-*:hover,
-*:focus,
-.modal-panel,
-.modal-overlay,
-button:active,
-a:active {
-    transition-duration: 0.2s;
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Specific fast components */
-.theme-toggle,
-.menu-toggle,
-.nav-link {
-    transition-duration: 0.2s !important;
+h1,
+h2,
+h3,
+h4,
+.logo-text {
+    font-family: var(--font-heading);
+    font-weight: 500;
 }
 
-/* ==================== ACCESSIBILITY ==================== */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-    }
-}
-
-/* ==================== GLASS EFFECT ==================== */
-.glass-effect {
-    background: var(--navbar-bg);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-}
-
-/* ==================== LINK HOVER STATES ==================== */
 a {
-    color: var(--accent-it);
-    transition: color 0.2s ease, opacity 0.2s ease;
+    text-decoration: none;
+    color: inherit;
 }
 
-a:hover {
-    color: var(--accent-it-hover);
-    opacity: 0.85;
-}
-
-/* ==================== SCROLLBAR THEMING ==================== */
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-alt);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--border-medium);
-    border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-it);
-}
-
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--border-medium) var(--bg-alt);
+button {
+    cursor: pointer;
+    font-family: inherit;
 }

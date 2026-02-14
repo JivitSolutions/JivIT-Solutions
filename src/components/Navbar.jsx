@@ -3,9 +3,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 
+import { adminService } from '../lib/adminService';
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [siteName, setSiteName] = useState('JivIT Solutions');
     const location = useLocation();
     const { theme, toggleTheme } = useTheme();
 
@@ -14,16 +17,26 @@ const Navbar = () => {
             setScrolled(window.scrollY > 20);
         };
         window.addEventListener('scroll', handleScroll);
+
+        const fetchSettings = async () => {
+            try {
+                const settings = await adminService.getSettings();
+                if (settings.site_name) setSiteName(settings.site_name);
+            } catch (error) { }
+        };
+        fetchSettings();
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const isActive = (path) => location.pathname === path;
 
     const navLinks = [
-        { name: 'Products & Services', path: '/products-services' },
+        { name: 'Services', path: '/products-services' },
         { name: 'Students', path: '/students' },
-        { name: 'Careers', path: '/careers' }, // Added Careers link
-        { name: 'Contact & Book', path: '/contact', type: 'cta' }
+        { name: 'Careers', path: '/careers' },
+        { name: 'Narratives', path: '/blog' },
+        { name: 'Contact', path: '/contact', type: 'cta' }
     ];
 
     return (
@@ -35,7 +48,7 @@ const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         className="logo-text"
                     >
-                        JivIT Solutions
+                        {siteName}
                     </motion.span>
                 </Link>
 

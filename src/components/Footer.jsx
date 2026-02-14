@@ -1,6 +1,22 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { adminService } from '../lib/adminService';
 
 const Footer = () => {
+    const [settings, setSettings] = useState({
+        site_name: 'JivIT Solutions',
+        contact_email: 'hello@jivitsolutions.com'
+    });
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const data = await adminService.getSettings();
+                if (data) setSettings(prev => ({ ...prev, ...data }));
+            } catch (error) { }
+        };
+        fetchSettings();
+    }, []);
     return (
         <footer className="site-footer">
             <div className="container">
@@ -8,7 +24,7 @@ const Footer = () => {
                 <div className="footer-grid">
                     {/* Company Info */}
                     <div className="footer-column footer-brand">
-                        <h3 className="footer-logo">JivIT Solutions</h3>
+                        <h3 className="footer-logo">{settings.site_name}</h3>
                         <p className="footer-description">
                             Harmonizing enterprise-grade IT solutions with holistic wellness services.
                             Building technology that scales businesses and platforms that transform lives.
@@ -19,7 +35,7 @@ const Footer = () => {
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                                     <polyline points="22,6 12,13 2,6" />
                                 </svg>
-                                <a href="mailto:hello@jivitsolutions.com">hello@jivitsolutions.com</a>
+                                <a href="mailto:hello@jivitsolutions.com">{settings.contact_email}</a>
                             </p>
                             <p>
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

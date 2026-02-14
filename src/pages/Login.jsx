@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/supabase';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -14,14 +14,46 @@ const Login = () => {
         setLoading(true);
         setError(null);
 
-        // Placeholder login logic with Supabase
+        // Developer Bypass for Local Testing
+        if (email === 'admin@jivit.com' && password === 'admin1003') {
+            console.log('Developer Admin login active');
+            localStorage.setItem('jivit_mock_admin', 'true');
+            setTimeout(() => {
+                navigate('/admin');
+                setLoading(false);
+            }, 500);
+            return;
+        }
+
+        if (email === 'user@jivit.com' && password === 'user123') {
+            console.log('Developer User login active');
+            // Mock a successful standard user login
+            setTimeout(() => {
+                navigate('/profile');
+                setLoading(false);
+            }, 500);
+            return;
+        }
+
         try {
             const { data, error } = await supabase.auth.signInWithPassword({
                 email,
                 password,
             });
             if (error) throw error;
-            alert('Login successful!');
+
+            // Check if user is admin
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('role')
+                .eq('id', data.user.id)
+                .single();
+
+            if (profile?.role === 'admin') {
+                navigate('/admin');
+            } else {
+                navigate('/profile');
+            }
         } catch (err) {
             setError(err.message);
         } finally {
@@ -106,8 +138,13 @@ const Login = () => {
                             {loading ? 'Signing In...' : 'Sign In'}
                         </button>
 
+                        <div className="login-hint" style={{ marginTop: '1rem', fontSize: '0.8rem', color: '#666', borderLeft: '3px solid #007bff', paddingLeft: '10px', background: '#f8f9fa', padding: '10px' }}>
+                            <strong>Demo Admin:</strong> admin@jivit.com / admin1003<br />
+                            <strong>Demo User:</strong> user@jivit.com / user123
+                        </div>
+
                         <div className="form-footer">
-                            <p>Don't have an account? <a href="#">Request Access</a></p>
+                            <p>Don't have an account? <Link to="/register">Create Access</Link></p>
                         </div>
                     </form>
                 </div>

@@ -56,46 +56,46 @@ const Home = () => {
     return (
         <div className="home-wrapper">
             {/* ================= HERO SECTION ================= */}
-            <section className="hero-premium relative overflow-hidden flex items-center bg-[var(--bg-main)] min-h-[800px] h-screen pt-20">
-                <div className="container relative z-10 max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center px-6">
+            <section className="hero-premium relative overflow-hidden flex items-center bg-[var(--bg-main)] min-h-[800px] h-screen pt-16">
+                <div className="container relative z-10 max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-center px-6">
                     <div className="flex flex-col items-start text-left">
                         <ScrollReveal>
-                            <div className="font-body text-xs tracking-[0.3em] uppercase text-[var(--text-tertiary)] mb-6">
+                            <div className="font-body text-xs md:text-sm tracking-[0.3em] uppercase text-[var(--text-tertiary)] mb-4">
                                 Elevating Human & Digital Realms
                             </div>
-                            <h1 className="font-heading text-5xl md:text-6xl lg:text-[4.5rem] font-normal leading-[1.1] tracking-[-0.03em] text-[var(--text-primary)] mb-10">
+                            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.1] tracking-[-0.03em] text-[var(--text-primary)] mb-6">
                                 {settings.hero_tagline.replace('Orchestrating', 'Mastery in')}
                             </h1>
-                            <p className="font-body text-xl md:text-2xl text-[var(--text-secondary)] font-light leading-[1.8] max-w-2xl mb-12">
+                            <p className="font-body text-lg md:text-xl text-[var(--text-secondary)] font-light leading-[1.6] max-w-2xl mb-8">
                                 {settings.hero_description}
                             </p>
                         </ScrollReveal>
 
                         <ScrollReveal>
-                            <div className="flex flex-wrap gap-5">
-                                <Link to="/wellness" className="px-8 py-4 bg-[var(--text-primary)] text-[var(--bg-white)] rounded-full text-sm tracking-[0.05em] transition-all hover:bg-transparent hover:text-[var(--text-primary)] border border-[var(--text-primary)]">
+                            <div className="flex flex-wrap gap-4">
+                                <Link to="/wellness" className="px-6 py-3 bg-[var(--text-primary)] text-[var(--bg-white)] rounded-full text-sm tracking-[0.05em] transition-all hover:bg-transparent hover:text-[var(--text-primary)] border border-[var(--text-primary)]">
                                     Astro Wellness
                                 </Link>
-                                <Link to="/it-solutions" className="px-8 py-4 bg-transparent text-[var(--text-primary)] rounded-full text-sm tracking-[0.05em] transition-all hover:border-[var(--text-primary)] border border-black/10">
+                                <Link to="/it-solutions" className="px-6 py-3 bg-transparent text-[var(--text-primary)] rounded-full text-sm tracking-[0.05em] transition-all hover:border-[var(--text-primary)] border border-black/10">
                                     IT Solutions
                                 </Link>
                             </div>
                         </ScrollReveal>
 
                         <ScrollReveal>
-                            <div className="flex gap-16 mt-20 pt-10 border-t border-black/5 w-full">
+                            <div className="flex gap-12 mt-12 pt-8 border-t border-black/5 w-full">
                                 {[{ val: 'Tier-1', lbl: 'Enterprise Standards' }, { val: 'Global', lbl: 'Scalable Reach' }].map((stat, i) => (
                                     <div key={i}>
-                                        <div className="font-heading text-xl text-[var(--text-primary)] mb-1">{stat.val}</div>
-                                        <div className="font-body text-xs uppercase tracking-[0.15em] text-[var(--text-tertiary)]">{stat.lbl}</div>
+                                        <div className="font-heading text-lg text-[var(--text-primary)] mb-1">{stat.val}</div>
+                                        <div className="font-body text-[10px] md:text-xs uppercase tracking-[0.15em] text-[var(--text-tertiary)]">{stat.lbl}</div>
                                     </div>
                                 ))}
                             </div>
                         </ScrollReveal>
                     </div>
 
-                    <ScrollReveal className="relative w-full flex justify-center">
-                        <div className="relative w-full max-w-[600px] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                    <ScrollReveal className="relative w-full flex justify-center mt-8 md:mt-0">
+                        <div className="relative w-full max-w-[550px] lg:max-w-[700px] max-h-[65vh] md:max-h-[75vh] lg:max-h-[85vh] aspect-[4/5] md:aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)]">
                             <img
                                 src={heroEarth}
                                 alt="Global Enterprise Systems"
@@ -166,6 +166,25 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
+            </section>
+
+            {/* ================= VISUAL DIVIDER ================= */}
+            <section className="relative w-full h-[60vh] min-h-[500px] overflow-hidden">
+                <ScrollReveal className="w-full h-full">
+                    <img
+                        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2000&q=80"
+                        alt="Global Technology Connectivity"
+                        className="w-full h-full object-cover filter brightness-[0.6] contrast-[1.1] transform hover:scale-105 transition-transform duration-[20s] ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-transparent to-[var(--bg-alt)] opacity-80 pointer-events-none" />
+
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="text-center px-6">
+                            <h2 className="text-4xl md:text-6xl text-white font-medium tracking-tight mb-4 drop-shadow-xl">Global Integration</h2>
+                            <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto drop-shadow-md">Unifying digital enterprise systems with profound human wisdom</p>
+                        </div>
+                    </div>
+                </ScrollReveal>
             </section>
 
             {/* ================= PROCESS ================= */}

@@ -7,7 +7,7 @@ const ScrollReveal = ({ children, className = '' }) => {
             variants={revealVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-10px" }}
+            viewport={{ once: true }}
             className={className}
         >
             {children}

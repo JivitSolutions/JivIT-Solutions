@@ -102,7 +102,7 @@ const Navbar = () => {
               to="/contact"
               className="inline-flex justify-center items-center px-5 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[14px] font-medium tracking-wide hover:shadow-lg hover:shadow-slate-900/10 dark:hover:shadow-white/10 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200 ease-out"
             >
-              Book a Demo
+              Make an Appointment
             </Link>
           </div>
 
@@ -158,7 +158,7 @@ const Navbar = () => {
               to="/contact"
               className="inline-flex justify-center items-center px-6 py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-lg font-medium tracking-wide shadow-md active:scale-[0.98] transition-all"
             >
-              Book a Demo
+              Make an Appointment
             </Link>
           </div>
         </div>
